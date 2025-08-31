@@ -2,11 +2,13 @@
 Generative AI
 
 # Screenshot
-## GenAi 
-Generated content 
 
-**content**
-![Sample]()
+## content generation
+input: "what can you infer from ‘Shakespeare in AI’? (max: 300 words)."
+
+
+**content generated**
+![Results](assets/content_gen.PNG)
 
 # Description
 
@@ -20,11 +22,11 @@ Generated content
 
 - install vs code (if necessary)
 - install pip, python (if necessary)
-- install required packages
-      pip install -r requirements.txt
+- install required packages:
+  - pip install -r requirements.txt
 - set environment variables
-      - Gcp Api key
-        setx API_KEY "<your_api_key>"
+  - Gcp Api key
+    - setx API_KEY "<your_api_key>"
 
 # Tools 
 
