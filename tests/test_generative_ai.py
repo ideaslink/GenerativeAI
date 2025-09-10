@@ -26,6 +26,7 @@ class TestGenerativeAI(unittest.TestCase):
     def setUp(self):
         pass
 
+    @unittest.skip("Skipping test that requires actual API call")
     def test_generative_ai(self):
         """
         test google generative ai - content generation
@@ -38,6 +39,20 @@ class TestGenerativeAI(unittest.TestCase):
         print(response)
         self.assertIsInstance(response, str)
         self.assertGreater(len(response), 0)
+
+    def test_generative_image(self):
+        """
+        test google generative ai - image generation
+        """
+        
+        # print("calling gemini api")
+        generative_ai = GenerativeAI(api_key = os.getenv( GCP_VARS.get("API_KEY", "") ) )
+        output_path = "../_assets/ai_gcp_image.png"
+        response = generative_ai.generate_image(output_path=output_path, prompt="generate an image: a cat wearing a hat", model="gemini-2.5-flash-image-preview")
+
+        # print(response)
+        self.assertTrue(os.path.exists(output_path))
+
 
     def tearDown(self):
         pass
