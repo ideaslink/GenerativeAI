@@ -13,11 +13,14 @@ __reference__ = "vci"
 
 """
 
+from urllib import response
 from google import genai
 from google.genai import types
 from google.genai.types import Part
 from PIL import Image
 from io import BytesIO
+import os
+import base64
 
 class GenerativeAI:
     def __init__(self, api_key: str) -> None:
@@ -35,10 +38,7 @@ class GenerativeAI:
         return response.text
     
     def generate_image(self, output_path: str, prompt: str, model: str = "gemini-2.5-flash") -> str:
-        # config = types.GenerateImagesConfig(
-        #     response_modalities=["TEXT", "IMAGE"],
-        #     candidate_count=1)
-            
+
         config = types.GenerateContentConfig(
             response_modalities=["TEXT", "IMAGE"],
             candidate_count=1)
@@ -66,7 +66,7 @@ class GenerativeAI:
         #         f.write(img.data)
 
         for part in response.candidates[0].content.parts:
-            print(f"part: {part}")
+            # print(f"part: {part}")
             if part.text:
                 print(f"part text: {part.text}")
             elif part.inline_data is not None:
@@ -79,3 +79,77 @@ class GenerativeAI:
         #         img.save(output_path)
 
         return f"number of images: {response.candidates.count}" # response.images.count
+
+    def generate_image_edit(self, input_path: str, output_path: str, prompt: str, model: str = "gemini-2.5-flash-image-preview") -> str:
+        """
+            generate an edited image based on input image and prompt
+
+            input_path: path to input image
+            output_path: path to save output image            
+            prompt: prompt for editing
+            model: model to use
+        
+        """
+
+        # imga = Image.open(input_path)
+        # bytear = imga.tobytes()
+        # print(f"input image byte size: {len(bytear)}")
+        # print(f"input image size: {imga.size}, mode: {imga.mode}")
+
+        # image1 = types.Part.from_uri(file_uri="gs://cloud-samples-data/generative-ai/image/croissant.jpeg", mime_type="image/jpeg")
+        # text1 = types.Part.from_text(text="""Add some chocolate drizzle to the croissants. Include text across the top of the image that says \"Made Fresh Daily\".""")
+
+        # # test: display the input 
+        
+        img = Image.open(input_path)
+        buffer = BytesIO()
+        img.save(buffer, format="PNG")
+        img_bytes = buffer.getvalue()
+        # img.show()
+
+
+        # image_orig = types.Part.from_uri(file_uri=input_path, mime_type="image/jpeg")
+        # image_orig = types.Part.from_bytes(data=BytesIO(Image.open(input_path).tobytes()).getvalue(), mime_type="image/png") # Image.open(input_path)
+        # image_orig = types.Part.from_bytes(data=Image.open(input_path).tobytes(), mime_type="image/png") # Image.open(input_path)
+        image_orig = types.Part.from_bytes(data=img_bytes, mime_type="image/png") # Image.open(input_path)
+        text_prompt = types.Part.from_text(text=prompt)
+            
+        # print(f"image part: {image_orig}")
+        # print(f"text part: {text_prompt}")
+        
+        # image1 = types.Part.from_uri(file_uri="gs://cloud-samples-data/generative-ai/image/croissant.jpeg", mime_type="image/jpeg",
+        
+        # specify contents
+        contents = [
+            types.Content(
+                role="user",
+                parts=[
+                    text_prompt,
+                    image_orig
+                ]
+            )
+        ]
+
+        config = types.GenerateContentConfig(
+            response_modalities=["TEXT", "IMAGE"],
+            candidate_count=1,
+            max_output_tokens=32768)
+                
+        response = self.genai_client.models.generate_content_stream(
+            model=model,
+            contents=contents,
+            config=config
+        )
+
+        # Stream and extract image
+        cnt = 0
+        for chunk in response:
+            for part in chunk.candidates[0].content.parts:
+                if part.inline_data:
+                    image_bytes = part.inline_data.data
+                    image = Image.open(BytesIO(image_bytes))
+                    image.save(output_path)  # Save locally
+                    image.show()  # Optional: display the image
+                    cnt += 1
+
+        return f"returned {cnt} images" # response.images.count

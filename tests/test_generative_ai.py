@@ -1,5 +1,5 @@
 """
-unit tests for google generative ai
+unit tests for generative ai
 
 __author__ = "vci"
 __copyright__ = "Copyright 2025, vci
@@ -40,6 +40,7 @@ class TestGenerativeAI(unittest.TestCase):
         self.assertIsInstance(response, str)
         self.assertGreater(len(response), 0)
 
+    @unittest.skip("Skipping test that requires actual API call")
     def test_generative_image(self):
         """
         test google generative ai - image generation
@@ -48,7 +49,24 @@ class TestGenerativeAI(unittest.TestCase):
         # print("calling gemini api")
         generative_ai = GenerativeAI(api_key = os.getenv( GCP_VARS.get("API_KEY", "") ) )
         output_path = "../_assets/ai_gcp_image.png"
-        response = generative_ai.generate_image(output_path=output_path, prompt="generate an image: a cat wearing a hat", model="gemini-2.5-flash-image-preview")
+        response = generative_ai.generate_image(output_path=output_path, prompt="generate an image: a logo for AI Frontiers.", model="gemini-2.5-flash-image-preview")
+
+        # print(response)
+        self.assertTrue(os.path.exists(output_path))
+
+    # @unittest.skip("Skipping test that requires actual API call")
+    def test_generative_image_edit(self):
+        """
+        test google generative ai - image editing
+        """
+        
+        # print("calling gemini api")
+        generative_ai = GenerativeAI(api_key = os.getenv( GCP_VARS.get("API_KEY", "") ) )
+        input_path = "../_assets/ai_gcp_image_original.png" # 
+        # input_path = "https://images.pexels.com/photos/2071873/pexels-photo-2071873.jpeg" # "https://cdn.pixabay.com/photo/2022/03/27/11/23/cat-7094808_1280.jpg"
+        # input_path = "https://cdn.pixabay.com/photo/2023/05/02/14/15/british-shorthair-7965411_1280.jpg" 
+        output_path = "../_assets/ai_gcp_image_edited.png"
+        response = generative_ai.generate_image_edit(input_path=input_path, output_path=output_path, prompt="edit the image to add a tie to the cat.", model="gemini-2.5-flash-image-preview")
 
         # print(response)
         self.assertTrue(os.path.exists(output_path))

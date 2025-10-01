@@ -19,11 +19,28 @@ These variables are used to configure the GCP client
 
 You need to set these variables in your environment, e.g. 
 
-    setx APIKEY "YOUR_API_KEY"
+    setx API_KEY "YOUR_API_KEY"
 
 The above setup is to avoid revealing sensitive information in your codebase.
 """
 
 GCP_VARS = {
-    "API_KEY": "API_KEY"     
+    "API_KEY": "API_KEY",
+    "API_KEY_VERTEX" : "API_KEY_VERTEX"     
+}
+
+
+"""
+OpenRouter environment variables
+These variables are used to configure the OpenRouter client
+
+You need to set these variables in your environment, e.g. 
+
+    setx OR_API_KEY "YOUR_OpenRouter_API_KEY"
+
+The above setup is to avoid revealing sensitive information in your codebase.
+"""
+
+OPENROUTER_VARS = {
+    "API_KEY": "OR_API_KEY"     
 }
