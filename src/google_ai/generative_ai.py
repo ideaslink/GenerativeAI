@@ -52,18 +52,6 @@ class GenerativeAI:
             contents=prompt,
             config=config
         )
-        
-        # response = self.genai_client.models.generate_images(
-        #     model=model,
-        #     prompt=prompt,
-        #     config=config
-        # )
-
-        # print(f"response len: {response.images.count}") # print response)
-        
-        # for i, img in enumerate(response.images):
-        #     with open(output_path, "wb") as f:
-        #         f.write(img.data)
 
         for part in response.candidates[0].content.parts:
             # print(f"part: {part}")
@@ -73,10 +61,6 @@ class GenerativeAI:
                 img = Image.open(BytesIO(part.inline_data.data))
                 img.save(output_path) # save image to output_path
 
-        # for part in response.candidates[0].content.parts:
-        #     if part.inline.data is not None:
-        #         img = Image.open(BytesIO(part.inline.data))
-        #         img.save(output_path)
 
         return f"number of images: {response.candidates.count}" # response.images.count
 
@@ -91,34 +75,16 @@ class GenerativeAI:
         
         """
 
-        # imga = Image.open(input_path)
-        # bytear = imga.tobytes()
-        # print(f"input image byte size: {len(bytear)}")
-        # print(f"input image size: {imga.size}, mode: {imga.mode}")
-
-        # image1 = types.Part.from_uri(file_uri="gs://cloud-samples-data/generative-ai/image/croissant.jpeg", mime_type="image/jpeg")
-        # text1 = types.Part.from_text(text="""Add some chocolate drizzle to the croissants. Include text across the top of the image that says \"Made Fresh Daily\".""")
-
         # # test: display the input 
         
         img = Image.open(input_path)
         buffer = BytesIO()
         img.save(buffer, format="PNG")
         img_bytes = buffer.getvalue()
-        # img.show()
 
-
-        # image_orig = types.Part.from_uri(file_uri=input_path, mime_type="image/jpeg")
-        # image_orig = types.Part.from_bytes(data=BytesIO(Image.open(input_path).tobytes()).getvalue(), mime_type="image/png") # Image.open(input_path)
-        # image_orig = types.Part.from_bytes(data=Image.open(input_path).tobytes(), mime_type="image/png") # Image.open(input_path)
         image_orig = types.Part.from_bytes(data=img_bytes, mime_type="image/png") # Image.open(input_path)
         text_prompt = types.Part.from_text(text=prompt)
             
-        # print(f"image part: {image_orig}")
-        # print(f"text part: {text_prompt}")
-        
-        # image1 = types.Part.from_uri(file_uri="gs://cloud-samples-data/generative-ai/image/croissant.jpeg", mime_type="image/jpeg",
-        
         # specify contents
         contents = [
             types.Content(
@@ -141,15 +107,15 @@ class GenerativeAI:
             config=config
         )
 
-        # Stream and extract image
+        # extract image
         cnt = 0
         for chunk in response:
             for part in chunk.candidates[0].content.parts:
                 if part.inline_data:
                     image_bytes = part.inline_data.data
                     image = Image.open(BytesIO(image_bytes))
-                    image.save(output_path)  # Save locally
+                    image.save(output_path)
                     image.show()  # Optional: display the image
                     cnt += 1
 
-        return f"returned {cnt} images" # response.images.count
+        return f"returned {cnt}" # response.images.count
