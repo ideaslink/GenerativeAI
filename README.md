@@ -5,13 +5,14 @@ Generative AI
 
 ## image editing
 **original image**
-![Results](assets/ai-gcp_image_original.PNG)
+![Results](assets/ai_gcp_image_original.png)
 
 **model**: gemini-2.5-flash-image-preview
+
 **prompt**: Add a tie to the cat and place it beside a swimming  pool lined with palm trees.
 
 **edited image**
-![Results](assets/edited_image.PNG)
+![Results](assets/edited_image.png)
 
 ## content generation
 input: "what can you infer from ‘Shakespeare in AI’? (max: 300 words)."
