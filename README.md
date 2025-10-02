@@ -3,6 +3,16 @@ Generative AI
 
 # Screenshot
 
+## image editing
+**original image**
+![Results](assets/ai-gcp_image_original.PNG)
+
+**model**: gemini-2.5-flash-image-preview
+**prompt**: Add a tie to the cat and place it beside a swimming  pool lined with palm trees.
+
+**edited image**
+![Results](assets/edited_image.PNG)
+
 ## content generation
 input: "what can you infer from ‘Shakespeare in AI’? (max: 300 words)."
 

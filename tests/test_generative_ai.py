@@ -66,7 +66,7 @@ class TestGenerativeAI(unittest.TestCase):
         # input_path = "https://images.pexels.com/photos/2071873/pexels-photo-2071873.jpeg" # "https://cdn.pixabay.com/photo/2022/03/27/11/23/cat-7094808_1280.jpg"
         # input_path = "https://cdn.pixabay.com/photo/2023/05/02/14/15/british-shorthair-7965411_1280.jpg" 
         output_path = "../_assets/ai_gcp_image_edited.png"
-        response = generative_ai.generate_image_edit(input_path=input_path, output_path=output_path, prompt="edit the image to add a tie to the cat. make the cat sit near a swimming pool.", model="gemini-2.5-flash-image-preview")
+        response = generative_ai.generate_image_edit(input_path=input_path, output_path=output_path, prompt="Add a tie to the cat and place it beside a swimming  pool lined with palm trees.", model="gemini-2.5-flash-image-preview")
 
         print(response)
         self.assertTrue(os.path.exists(output_path))
