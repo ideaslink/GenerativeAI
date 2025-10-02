@@ -115,7 +115,7 @@ class GenerativeAI:
                     image_bytes = part.inline_data.data
                     image = Image.open(BytesIO(image_bytes))
                     image.save(output_path)
-                    image.show()  # Optional: display the image
+                    # image.show()  # Optional: display the image
                     cnt += 1
 
         return f"returned {cnt}" # response.images.count
