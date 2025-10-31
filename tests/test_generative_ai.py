@@ -65,8 +65,6 @@ class TestGenerativeAI(unittest.TestCase):
         # print("calling gemini api")
         generative_ai = GenerativeAI(api_key = os.getenv( GCP_VARS.get("API_KEY", "") ) )
         input_path = "../_assets/ai_gcp_image_original.png" # 
-        # input_path = "https://images.pexels.com/photos/2071873/pexels-photo-2071873.jpeg" # "https://cdn.pixabay.com/photo/2022/03/27/11/23/cat-7094808_1280.jpg"
-        # input_path = "https://cdn.pixabay.com/photo/2023/05/02/14/15/british-shorthair-7965411_1280.jpg" 
         output_path = "../_assets/ai_gcp_image_edited.png"
         response = generative_ai.generate_image_edit(input_path=input_path, output_path=output_path, prompt="Add a tie to the cat and place it beside a swimming  pool lined with palm trees.", model="gemini-2.5-flash-image-preview")
 
@@ -82,12 +80,12 @@ class TestGenerativeAI(unittest.TestCase):
         vertexai_rag = VertexAiRAG(project_name="gcpapis-468721", location="us-central1", api_key_file=apikeyfile)
         pdf_path = "../_assets/Oscar 2025 winners.pdf"
         query = "Who is the Best Actor winner?"
-        # texts = vertexai_rag.extract_text_from_pdf(pdf_path=pdf_path, max_page=3)
-        # print(f"extracted texts: {texts}")
-        # ids = [f"page_{i}" for i in range(len(texts))]
-        # embeddings = vertexai_rag.embed_texts(texts=texts)
-        # print(f"embeddings: {embeddings}")
-        # index = vertexai_rag.uploadto_vector_search(embeddings=embeddings, ids=ids, index_id="7517081723151056896")
+        texts = vertexai_rag.extract_text_from_pdf(pdf_path=pdf_path, max_page=3)
+        print(f"extracted texts: {texts}")
+        ids = [f"page_{i}" for i in range(len(texts))]
+        embeddings = vertexai_rag.embed_texts(texts=texts)
+        print(f"embeddings: {embeddings}")
+        index = vertexai_rag.uploadto_vector_search(embeddings=embeddings, ids=ids, index_id="7517081723151056896")
         retrieved_texts = vertexai_rag.retrieve_similar_texts(query=query, endpoint_id="projects/459024198485/locations/us-central1/indexEndpoints/2061577705010233344", deployed_index_id="gcp_sharp_deploy_stream_1761254986818", top_k=3)
         print(f"retrieved_texts: {retrieved_texts}")
         response = vertexai_rag.generate_response(query=query, retrieved_texts=retrieved_texts, model="gemini-2.5-flash")
@@ -111,12 +109,9 @@ class TestGenerativeAI(unittest.TestCase):
         pdf_path = "../_assets/Oscar 2025 winners.pdf"
         query = "Who is the Best Actor winner?"
         texts = vertexai_rag.extract_text_from_pdf(pdf_path=pdf_path, max_page=3)
-        # print(f"extracted texts: {texts}")
         ids = [f"{i}" for i in range(len(texts))]
         embeddings = vertexai_rag.embed_texts(texts=texts)
         index = vertexai_rag.create_vector_search(embeddings=embeddings, ids=ids, index_id=self.index_id, endpoint_id=self.endpoint_id, deployed_index_id=self.deployed_index_id, export_file="../_assets/vector_datapoints.jsonl")    
-        # print(f"embeddings: {embeddings}")
-        # index = vertexai_rag.uploadto_vector_search(embeddings=embeddings, ids=ids, index_id="7517081723151056896")
         retrieved_texts = vertexai_rag.retrieve_similar_texts(query=query, endpoint_id=self.endpoint_id, deployed_index_id=self.deployed_index_id, top_k=3)
         print(f"retrieved_texts: {retrieved_texts}")
         response = vertexai_rag.generate_response(query=query, retrieved_texts=retrieved_texts, model="gemini-2.5-flash")
@@ -131,10 +126,10 @@ class TestGenerativeAI(unittest.TestCase):
         test google vertex ai rag - upsert datapoints
         """
         self.UID = "001"  # unique value for index/endpoint etc.
-        self.index_id = "9069979169663746048" # f"gcp_sharp_index_{self.UID}"
-        self.endpoint_id = "3110634943210848256" # f"gcp_sharp_endpoint_{self.UID}"
+        self.index_id = "9069979169663746048" # input your index id (note: it's not sensitive)
+        self.endpoint_id = "3110634943210848256" # input your endpoint id (note: it's not sensitive)
         self.deployed_index_id = f"gcp_sharp_deploy_{self.UID}"
-        project_id = "459024198485"
+        project_id = "459024198485" # input your project id (note: it's not sensitive)
         project_name="gcpapis-468721"
         location="us-central1"
         apikeyfile = os.getenv( GCP_VARS.get("VERTEXAI_KEY_FILE", "") )
@@ -158,16 +153,16 @@ class TestGenerativeAI(unittest.TestCase):
         self.assertIsInstance(response, str)
         self.assertGreater(len(response), 0)
 
-    # @unittest.skip("Skipping test for querying about oscar winners")
+    @unittest.skip("Skipping test for querying about oscar winners")
     def test_vertexai_rag_query_movie_winners(self):
         """
         test google vertex ai rag - query movie winners
         """
         self.UID = "001"  # unique value for index/endpoint etc.
-        self.index_id = "9069979169663746048" # f"gcp_sharp_index_{self.UID}"
-        self.endpoint_id = "3110634943210848256" # f"gcp_sharp_endpoint_{self.UID}"
+        self.index_id = "9069979169663746048" # input your index id (note: it's not sensitive)
+        self.endpoint_id = "3110634943210848256" # input your endpoint id (note: it's not sensitive)
         self.deployed_index_id = f"gcp_sharp_deploy_{self.UID}"
-        project_id = "459024198485"
+        project_id = "459024198485" # input your project id (note: it's not sensitive)
         project_name="gcpapis-468721"
         location="us-central1"
         apikeyfile = os.getenv( GCP_VARS.get("VERTEXAI_KEY_FILE", "") )
