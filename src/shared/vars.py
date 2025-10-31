@@ -26,7 +26,8 @@ The above setup is to avoid revealing sensitive information in your codebase.
 
 GCP_VARS = {
     "API_KEY": "API_KEY",
-    "API_KEY_VERTEX" : "API_KEY_VERTEX"     
+    "API_KEY_VERTEX" : "API_KEY_VERTEX",
+    "VERTEXAI_KEY_FILE": "VERTEXAI_KEY_FILE"    
 }
 
 
