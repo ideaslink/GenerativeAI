@@ -29,34 +29,22 @@ class TestGenerativeAI(unittest.TestCase):
     # @unittest.skip("Skipping test that requires actual API call")
     def test_generative_ai(self):
         """
-        test google generative ai - content generation
+        test openrouter generative ai - content generation
         """
         
-        # print("calling gemini api")
+        # print("openrouter api call")
+        model = f"x-ai/grok-4.1-fast:free"
+        prompt = "given raw food: shrimp (about 10 pieces), pasta, broccoli, and cheese, suggest a meal recipe with cooking instructions, and provide nutrition facts."
+        # prompt = "what can you infer from ‘Shakespeare in AI’? (max: 300 words)."
         generative_ai = GenerativeAI(api_key = os.getenv( OPENROUTER_VARS.get("API_KEY", "") ) )
-        response = generative_ai.generate_text(prompt="what can you infer from ‘Shakespeare in AI’? (max: 300 words).", model="deepseek/deepseek-chat-v3.1:free")
+        response = generative_ai.generate_text(prompt=prompt, model=model)
 
         print(response)
         self.assertIsInstance(response, str)
         self.assertGreater(len(response), 0)
 
-    # def test_generative_image(self):
-    #     """
-    #     test google generative ai - image generation
-    #     """
-        
-    #     # print("calling gemini api")
-    #     generative_ai = GenerativeAI(api_key = os.getenv( GCP_VARS.get("API_KEY", "") ) )
-    #     output_path = "../_assets/ai_gcp_image.png"
-    #     response = generative_ai.generate_image(output_path=output_path, prompt="generate an image: a cat wearing a hat", model="gemini-2.5-flash-image-preview")
-
-    #     # print(response)
-    #     self.assertTrue(os.path.exists(output_path))
-
-
     def tearDown(self):
         pass
-        # sys.path.pop(0)
 
 if __name__ == '__main__':
     unittest.main()

@@ -126,11 +126,11 @@ class TestGenerativeAI(unittest.TestCase):
         test google vertex ai rag - upsert datapoints
         """
         self.UID = "001"  # unique value for index/endpoint etc.
-        self.index_id = "9069979169663746048" # input your index id (note: it's not sensitive)
-        self.endpoint_id = "3110634943210848256" # input your endpoint id (note: it's not sensitive)
+        self.index_id = "<your index id>" # input your index id (note: it's not sensitive)
+        self.endpoint_id = "<your endpoint id>" # input your endpoint id (note: it's not sensitive)
         self.deployed_index_id = f"gcp_sharp_deploy_{self.UID}"
-        project_id = "459024198485" # input your project id (note: it's not sensitive)
-        project_name="gcpapis-468721"
+        project_id = "<your project id>" # input your project id (note: it's not sensitive)
+        project_name="<your project name>"
         location="us-central1"
         apikeyfile = os.getenv( GCP_VARS.get("VERTEXAI_KEY_FILE", "") )
         vertexai_rag = VertexAiVectorSearch(project_name=project_name, location=location, api_key_file=apikeyfile)
@@ -159,11 +159,11 @@ class TestGenerativeAI(unittest.TestCase):
         test google vertex ai rag - query movie winners
         """
         self.UID = "001"  # unique value for index/endpoint etc.
-        self.index_id = "9069979169663746048" # input your index id (note: it's not sensitive)
-        self.endpoint_id = "3110634943210848256" # input your endpoint id (note: it's not sensitive)
+        self.index_id = "<your index id>"
+        self.endpoint_id = "<your endpoint id>"
         self.deployed_index_id = f"gcp_sharp_deploy_{self.UID}"
-        project_id = "459024198485" # input your project id (note: it's not sensitive)
-        project_name="gcpapis-468721"
+        project_id = "<your project id>"
+        project_name="<your project name>"
         location="us-central1"
         apikeyfile = os.getenv( GCP_VARS.get("VERTEXAI_KEY_FILE", "") )
         vertexai_rag = VertexAiVectorSearch(project_name=project_name, location=location, api_key_file=apikeyfile)
