@@ -19,7 +19,11 @@ These variables are used to configure the GCP client
 
 You need to set these variables in your environment, e.g. 
 
+    # for Windows
     setx API_KEY "YOUR_API_KEY"
+
+    # for Linux or MacOS
+    export API_KEY="YOUR_API_KEY"
 
 The above setup is to avoid revealing sensitive information in your codebase.
 """
@@ -37,7 +41,11 @@ These variables are used to configure the OpenRouter client
 
 You need to set these variables in your environment, e.g. 
 
+    # for Windows
     setx OR_API_KEY "YOUR_OpenRouter_API_KEY"
+
+    # for Linux or MacOS
+    export OR_API_KEY="YOUR_OpenRouter_API_KEY"
 
 The above setup is to avoid revealing sensitive information in your codebase.
 """
@@ -45,3 +53,7 @@ The above setup is to avoid revealing sensitive information in your codebase.
 OPENROUTER_VARS = {
     "API_KEY": "OR_API_KEY"     
 }
+
+PERPLEXITY_VARS = {
+    "API_KEY": "PERPLEXITY_API_KEY"     
+}   
