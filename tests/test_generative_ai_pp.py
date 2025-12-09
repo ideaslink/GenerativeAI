@@ -35,8 +35,26 @@ class TestGenerativeAI(unittest.TestCase):
         
         # # print("openrouter api call")
         model = "sonar"
-        prompt = "given raw food: shrimp (about 10 pieces), pasta, broccoli, and cheese, suggest a meal recipe with cooking instructions, and provide nutrition facts."
+        prompt = "given raw food: shrimp (about 10 pieces), pasta, broccoli, and cheese, " \
+        "suggest a meal recipe with cooking instructions, and provide nutrition facts (along with % of daily value)."
+        # Modify the prompt to request JSON format for recipe and nutritional facts
+        prompt = (
+            f"{prompt}\n\n"
+            "Please provide the response in JSON format with the following structure:\n"
+            "{\n"
+            "  \"recipe\": \"<recipe name>\",\n"
+            "  \"ingredients\": [\"<ingredient 1>\", \"<ingredient 2>\", ...],\n"
+            "  \"steps\": [\"<step 1>\", \"<step 2>\", ...],\n"
+            "  \"nutritional_facts\": {\n"
+            "    \"calories\": \"<calories>\",\n"
+            "    \"protein\": \"<protein>\",\n"
+            "    \"fat\": \"<fat>\",\n"
+            "    \"carbohydrates\": \"<carbohydrates>\"\n"
+            "  }\n"
+            "}"
+        )
         # prompt = "what can you infer from ‘Shakespeare in AI’? (max: 300 words)."
+
         generative_ai = GenerativeAI(api_key = os.getenv( PERPLEXITY_VARS.get("API_KEY", "") ) )
         response = generative_ai.generate_text(prompt=prompt, model=model)
 

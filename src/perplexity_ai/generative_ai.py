@@ -43,5 +43,5 @@ class GenerativeAI:
             temperature=0.7
         )
 
-        print(f"response: {response}")
+        # print(f"response: {response}")
         return response.choices[0].message.content
