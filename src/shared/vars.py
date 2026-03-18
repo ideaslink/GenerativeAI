@@ -56,4 +56,8 @@ OPENROUTER_VARS = {
 
 PERPLEXITY_VARS = {
     "API_KEY": "PERPLEXITY_API_KEY"     
-}   
+}
+
+ZAI_VARS = {
+    "API_KEY": "ZAI_API_KEY"     
+}
