@@ -1,8 +1,8 @@
 """
-unit tests for openrouter generative ai
+unit tests for navy ai
 
 __author__ = "vci"
-__copyright__ = "Copyright 2025, vci
+__copyright__ = "Copyright 2026, vci
 __license++ = "MIT
 __version__ = "1.0.0.10"
 __maintainer__ = "vci"
@@ -19,8 +19,8 @@ import sys
 src_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'src'))
 if src_path not in sys.path:
     sys.path.insert(0, src_path)
-from openrouter_ai.generative_ai import GenerativeAI
-from shared.vars import OPENROUTER_VARS
+from navy_ai.generative_ai import GenerativeAI
+from shared.vars import NVAI_VARS
 
 class TestGenerativeAI(unittest.TestCase):
     def setUp(self):
@@ -33,11 +33,10 @@ class TestGenerativeAI(unittest.TestCase):
         """
         
         # print("openrouter api call") 
-        model = "meta-llama/llama-3.3-70b-instruct:free"
-        # model = f"x-ai/grok-4.1-fast:free"
+        model = "gemini-2.5-flash"
         prompt = "given raw food: shrimp (about 10 pieces), pasta, broccoli, and cheese, suggest a meal recipe with cooking instructions, and provide nutrition facts."
         # prompt = "what can you infer from ‘Shakespeare in AI’? (max: 300 words)."
-        generative_ai = GenerativeAI(api_key = os.getenv( OPENROUTER_VARS.get("API_KEY", "") ) )
+        generative_ai = GenerativeAI(api_key = os.getenv( NVAI_VARS.get("API_KEY", "") ) )
         response = generative_ai.generate_text(prompt=prompt, model=model)
 
         print(f"response: {response}")

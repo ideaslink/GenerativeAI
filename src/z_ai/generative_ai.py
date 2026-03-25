@@ -35,24 +35,44 @@ class GenerativeAI:
         Returns:
             str: The generated text response from the model.
         """
-        client = OpenAI(
-            base_url = "https://integrate.api.nvidia.com/v1",
-            api_key = self.api_key
-        )
 
-        print(f"API Key: {self.api_key}")
-        completion = client.chat.completions.create(
-            model=model,
-            messages=[{"role":"user","content":prompt}],
-            temperature=1,
-            top_p=1,
-            max_tokens=16384,
-            extra_body={"chat_template_kwargs":{"enable_thinking":True,"clear_thinking":False}},
-            stream=False
-        )
+        # print(f"API Key: {self.api_key}")
 
-        response = ""
-        response = completion.choices[0].message.content
+        # direct api key call without using the openai client library
+        url = "https://integrate.api.nvidia.com/v1/chat/completions"
+        headers = {
+            "Authorization": f"Bearer {self.api_key}",
+            "Content-Type": "application/json"
+        }
+
+        payload = {
+            "model": model,
+            "messages": [
+                {"role": "user", "content": prompt}
+            ]
+        }
+
+        response = requests.post(url, headers=headers, json=payload)
+
+        # print(response.json())
+
+        # client = OpenAI(
+        #     base_url = "https://integrate.api.nvidia.com/v1",
+        #     api_key = self.api_key
+        # )
+
+        # completion = client.chat.completions.create(
+        #     model=model,
+        #     messages=[{"role":"user","content":prompt}],
+        #     temperature=1,
+        #     top_p=1,
+        #     max_tokens=16384,
+        #     extra_body={"chat_template_kwargs":{"enable_thinking":True,"clear_thinking":False}},
+        #     stream=False
+        # )
+
+        # response = ""
+        # response = completion.choices[0].message.content
    
         ## when stream=True, we need to iterate through the stream to get the full response
         # for chunk in completion:
@@ -64,6 +84,7 @@ class GenerativeAI:
         #     if getattr(delta, "content", None) is not None:
         #         response += delta.content
 
+        response = response.json()["choices"][0]["message"]["content"]
         return response
     
     # def generate_image(self, output_path: str, prompt: str, model: str = "gemini-2.5-flash") -> str:

@@ -1,8 +1,8 @@
 """
-Generative AI models - openrouter ai
+Generative AI models - navy ai
 
 __author__ = "vci"
-__copyright__ = "Copyright 2025, vci"
+__copyright__ = "Copyright 2026, vci"
 __license__ = "MIT"
 __version__ = "1.0.0.10"
 __maintainer__ = "vci"
@@ -13,9 +13,7 @@ __reference__ = "vci"
 
 """
 
-# from google import genai
-# from google.genai import types
-# from google.genai.types import Part
+import openai
 import requests
 import json
 from PIL import Image
@@ -24,11 +22,10 @@ from io import BytesIO
 class GenerativeAI:
     def __init__(self, api_key: str) -> None:
         self.api_key = api_key
-        # self.genai_client = genai.Client(api_key=self.api_key)
 
-    def generate_text(self, prompt: str, model: str = "deepseek/deepseek-chat-v3.1:free") -> str:
+    def generate_text(self, prompt: str, model: str = "gpt-4.1") -> str:
         response = requests.post(
-            url=f"https://openrouter.ai/api/v1/chat/completions",
+            url=f" https://api.navy/v1/chat/completions",
             headers={
                 "Authorization": f"Bearer {self.api_key}",
                 "Content-Type": "application/json"

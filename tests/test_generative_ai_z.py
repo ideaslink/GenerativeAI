@@ -34,32 +34,32 @@ class TestGenerativeAI(unittest.TestCase):
         
         # print("openrouter api call")
         model = f"z-ai/glm4.7"
-        # prompt = "given raw food: shrimp (about 10 pieces), pasta, broccoli, and cheese, suggest a meal recipe with cooking instructions, and provide nutrition facts."
-        prompt= """
-        You are a nutrition-expert meal planner. 
+        prompt = "given raw food: shrimp (about 10 pieces), pasta, broccoli, and cheese, suggest a meal recipe with cooking instructions, and provide nutrition facts."
+        # prompt= """
+        # You are a nutrition-expert meal planner. 
 
-            Inventory: 2 items of Apples, 0.25 lbs of Chicken Breast, 0 gallon of Milk, 0 items of Salmon Fillets, 0 lbs of Broccoli, 1.0625 lbs of Beef sirloin , 180.5 g of Bacon , 0.25 lbs of Shrimp , 1 lbs of Chicken wings , 4 lbs of Chicken wings, 2.5 items of Tomato. 
+        #     Inventory: 2 items of Apples, 0.25 lbs of Chicken Breast, 0 gallon of Milk, 0 items of Salmon Fillets, 0 lbs of Broccoli, 1.0625 lbs of Beef sirloin , 180.5 g of Bacon , 0.25 lbs of Shrimp , 1 lbs of Chicken wings , 4 lbs of Chicken wings, 2.5 items of Tomato. 
 
-            Current Preferences: Italian. 
+        #     Current Preferences: Italian. 
 
-            Generate a full 7-day meal plan (Monday-Sunday). 
+        #     Generate a full 7-day meal plan (Monday-Sunday). 
 
-            Rules: 
+        #     Rules: 
 
-            1. Every meal MUST primarily use the provided Inventory items. 
+        #     1. Every meal MUST primarily use the provided Inventory items. 
 
-            2. You may assume basic staples are available: salt, black pepper, olive oil, water, and sugar. 
+        #     2. You may assume basic staples are available: salt, black pepper, olive oil, water, and sugar. 
 
-            3. Do NOT suggest recipes requiring major ingredients NOT in the inventory. 
+        #     3. Do NOT suggest recipes requiring major ingredients NOT in the inventory. 
 
-            4. Output MUST be valid JSON matching this schema: { "week": [{ "day": "Monday", "breakfast": { "title": "Scrambled Eggs", "calories": 300, "protein": 20, "carbs": 1, "fat": 22, "timeMins": 10, "description": "Classic scrambled eggs.", "ingredients": [{"name": "Eggs", "amount": "3"}, {"name": "Salt",  
+        #     4. Output MUST be valid JSON matching this schema: { "week": [{ "day": "Monday", "breakfast": { "title": "Scrambled Eggs", "calories": 300, "protein": 20, "carbs": 1, "fat": 22, "timeMins": 10, "description": "Classic scrambled eggs.", "ingredients": [{"name": "Eggs", "amount": "3"}, {"name": "Salt",  
 
-            "amount": "pinch"}], "instructions": ["Whisk eggs", "Cook in pan"] }, "lunch": { ... }, "dinner": { ... } }] }. 
+        #     "amount": "pinch"}], "instructions": ["Whisk eggs", "Cook in pan"] }, "lunch": { ... }, "dinner": { ... } }] }. 
 
-            5. For each day, include keys "breakfast", "lunch", "dinner". 
+        #     5. For each day, include keys "breakfast", "lunch", "dinner". 
 
-            6. The schema for each meal should contain: title (string), calories (integer), protein (integer), carbs (integer), fat (integer), timeMins (integer), description (string), ingredients (array of objects with name and amount), and instructions (array of strings)."
-        """
+        #     6. The schema for each meal should contain: title (string), calories (integer), protein (integer), carbs (integer), fat (integer), timeMins (integer), description (string), ingredients (array of objects with name and amount), and instructions (array of strings)."
+        # """
 
         # prompt = "what can you infer from ‘Shakespeare in AI’? (max: 300 words)."
         apikey = os.getenv( ZAI_VARS.get("API_KEY", "") )

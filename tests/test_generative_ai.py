@@ -28,15 +28,27 @@ class TestGenerativeAI(unittest.TestCase):
     def setUp(self):
         pass
 
-    @unittest.skip("Skipping test that requires actual API call")
+    # @unittest.skip("Skipping test that requires actual API call")
     def test_generative_ai(self):
         """
         test google generative ai - content generation
         """
         
         # print("calling gemini api")
+        model = "gemini-3-flash-preview" # "gemini-2.5-flash"
+        prompt = '''You are a nutrition-expert meal planner.
+            Inventory: 2 items of Apples, 2 lbs of Chicken Breast, 1 gallon of Milk, 2 lbs of Salmon Fillets, 2 lbs of Broccoli, 1.0625 lbs of Beef sirloin , 180.5 g of Bacon , 2 lbs of Shrimp , 1 lbs of Chicken wings , 4 lbs of Chicken wings, 2.5 items of Tomato, 1 items of Noodles .
+            Current Preferences: Italian.
+
+            Generate a full 7-day meal plan (Monday-Sunday).
+            Rules:
+            1. Every meal MUST primarily use the provided Inventory items.
+            2. You may assume basic staples are available: salt, black pepper, olive oil, water, and sugar.
+            3. Do NOT suggest recipes requiring major ingredients NOT in the inventory.
+            4. Output MUST be valid JSON.
+            5. For each day, include keys "breakfast", "lunch", "dinner".'''
         generative_ai = GenerativeAI(api_key = os.getenv( GCP_VARS.get("API_KEY", "") ) )
-        response = generative_ai.generate_text(prompt="what can you infer from ‘Shakespeare in AI’? (max: 300 words).", model="gemini-2.5-flash")
+        response = generative_ai.generate_text(prompt=prompt, model=model)
 
         print(response)
         self.assertIsInstance(response, str)
