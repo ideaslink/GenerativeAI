@@ -34,8 +34,8 @@ class TestGenerativeAI(unittest.TestCase):
         
         # print("openrouter api call") 
         model = "gemini-2.5-flash"
-        prompt = "given raw food: shrimp (about 10 pieces), pasta, broccoli, and cheese, suggest a meal recipe with cooking instructions, and provide nutrition facts."
-        # prompt = "what can you infer from ‘Shakespeare in AI’? (max: 300 words)."
+        # prompt = "given raw food: shrimp (about 10 pieces), pasta, broccoli, and cheese, suggest a meal recipe with cooking instructions, and provide nutrition facts."
+        prompt = "what can you infer from ‘Shakespeare in AI’? (max: 300 words)."
         generative_ai = GenerativeAI(api_key = os.getenv( NVAI_VARS.get("API_KEY", "") ) )
         response = generative_ai.generate_text(prompt=prompt, model=model)
 

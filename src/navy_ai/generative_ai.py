@@ -13,6 +13,7 @@ __reference__ = "vci"
 
 """
 
+from langchain_openai import ChatOpenAI
 import openai
 import requests
 import json
@@ -24,25 +25,33 @@ class GenerativeAI:
         self.api_key = api_key
 
     def generate_text(self, prompt: str, model: str = "gpt-4.1") -> str:
-        response = requests.post(
-            url=f" https://api.navy/v1/chat/completions",
-            headers={
-                "Authorization": f"Bearer {self.api_key}",
-                "Content-Type": "application/json"
-            },
-            data=json.dumps({
-                "model": model,
-                "messages": [
-                    {"role": "user", "content": prompt}
-                ],
-                "max_tokens": 12288,
-                "temperature": 0.7
-            })
-        )
-        print(f"response: {response}") 
-        response_json = response.json()
-        response_text = response_json["choices"][0]["message"]["content"]
-        return response_text
+        '''
+        generate text using navy ai
+        '''
+        # call ai model using langchain
+        llm = ChatOpenAI(model=model, base_url="https://api.navy/v1", api_key=self.api_key)
+        response = llm.invoke(prompt)
+        return response.content
+
+        # response = requests.post(
+        #     url=f" https://api.navy/v1/chat/completions",
+        #     headers={
+        #         "Authorization": f"Bearer {self.api_key}",
+        #         "Content-Type": "application/json"
+        #     },
+        #     data=json.dumps({
+        #         "model": model,
+        #         "messages": [
+        #             {"role": "user", "content": prompt}
+        #         ],
+        #         "max_tokens": 12288,
+        #         "temperature": 0.7
+        #     })
+        # )
+        # print(f"response: {response}") 
+        # response_json = response.json()
+        # response_text = response_json["choices"][0]["message"]["content"]
+        # return response_text
     
     # def generate_image(self, output_path: str, prompt: str, model: str = "gemini-2.5-flash") -> str:
     #     # config = types.GenerateImagesConfig(
