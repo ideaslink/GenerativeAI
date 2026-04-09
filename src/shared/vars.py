@@ -62,3 +62,6 @@ NVAI_VARS = {
     "API_KEY": "NVAI_API_KEY"     
 }
 
+OLLAMA_VARS = {
+    "API_KEY": "OLLAMA_API_KEY"     
+}
