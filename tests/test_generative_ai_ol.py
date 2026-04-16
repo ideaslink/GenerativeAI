@@ -34,32 +34,32 @@ class TestGenerativeAI(unittest.TestCase):
         
         # print("openrouter api call")
         model = "gemma4:31b-cloud" # f"glm-5.1:cloud"
-        # prompt = "given raw food: shrimp (about 10 pieces), pasta, broccoli, and cheese, suggest a meal recipe with cooking instructions, and provide nutrition facts."
-        prompt= """
-        You are a nutrition-expert meal planner. 
+        prompt = "given raw food: shrimp (about 10 pieces), pasta, broccoli, and cheese, suggest a meal recipe with cooking instructions, and provide nutrition facts."
+        # prompt= """
+        # You are a nutrition-expert meal planner. 
 
-            Inventory: 2 items of Apples, 2 lbs of Chicken Breast, 2 gallon of Milk, 2 items of Salmon Fillets, 3 lbs of Broccoli, 5 lbs of Beef sirloin , 500 g of Bacon , 2 lbs of Shrimp , 3 lbs of Chicken wings, 5 items of Tomato. 
+        #     Inventory: 2 items of Apples, 2 lbs of Chicken Breast, 2 gallon of Milk, 2 items of Salmon Fillets, 3 lbs of Broccoli, 5 lbs of Beef sirloin , 500 g of Bacon , 2 lbs of Shrimp , 3 lbs of Chicken wings, 5 items of Tomato. 
 
-            Current Preferences: Italian. 
+        #     Current Preferences: Italian. 
 
-            Generate a full 7-day meal plan (Monday-Sunday). 
+        #     Generate a full 7-day meal plan (Monday-Sunday). 
 
-            Rules: 
+        #     Rules: 
 
-            1. Every meal MUST primarily use the provided Inventory items. 
+        #     1. Every meal MUST primarily use the provided Inventory items. 
 
-            2. You may assume basic staples are available: salt, black pepper, olive oil, water, and sugar. 
+        #     2. You may assume basic staples are available: salt, black pepper, olive oil, water, and sugar. 
 
-            3. Do NOT suggest recipes requiring major ingredients NOT in the inventory. 
+        #     3. Do NOT suggest recipes requiring major ingredients NOT in the inventory. 
 
-            4. Output MUST be valid JSON matching this schema: { "week": [{ "day": "Monday", "breakfast": { "title": "Scrambled Eggs", "calories": 300, "protein": 20, "carbs": 1, "fat": 22, "timeMins": 10, "description": "Classic scrambled eggs.", "ingredients": [{"name": "Eggs", "amount": "3"}, {"name": "Salt",  
+        #     4. Output MUST be valid JSON matching this schema: { "week": [{ "day": "Monday", "breakfast": { "title": "Scrambled Eggs", "calories": 300, "protein": 20, "carbs": 1, "fat": 22, "timeMins": 10, "description": "Classic scrambled eggs.", "ingredients": [{"name": "Eggs", "amount": "3"}, {"name": "Salt",  
 
-            "amount": "pinch"}], "instructions": ["Whisk eggs", "Cook in pan"] }, "lunch": { ... }, "dinner": { ... } }] }. 
+        #     "amount": "pinch"}], "instructions": ["Whisk eggs", "Cook in pan"] }, "lunch": { ... }, "dinner": { ... } }] }. 
 
-            5. For each day, include keys "breakfast", "lunch", "dinner". 
+        #     5. For each day, include keys "breakfast", "lunch", "dinner". 
 
-            6. The schema for each meal should contain: title (string), calories (integer), protein (integer), carbs (integer), fat (integer), timeMins (integer), description (string), ingredients (array of objects with name and amount), and instructions (array of strings)."
-        """
+        #     6. The schema for each meal should contain: title (string), calories (integer), protein (integer), carbs (integer), fat (integer), timeMins (integer), description (string), ingredients (array of objects with name and amount), and instructions (array of strings)."
+        # """
 
         # prompt = "what can you infer from ‘Shakespeare in AI’? (max: 300 words)."
 
