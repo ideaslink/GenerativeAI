@@ -33,7 +33,7 @@ class TestGenerativeAI(unittest.TestCase):
         """
         
         # print("openrouter api call")
-        model = f"glm-5.1:cloud"
+        model = "gemma4:31b-cloud" # f"glm-5.1:cloud"
         # prompt = "given raw food: shrimp (about 10 pieces), pasta, broccoli, and cheese, suggest a meal recipe with cooking instructions, and provide nutrition facts."
         prompt= """
         You are a nutrition-expert meal planner. 

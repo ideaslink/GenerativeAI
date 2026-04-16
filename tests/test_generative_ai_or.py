@@ -33,7 +33,7 @@ class TestGenerativeAI(unittest.TestCase):
         """
         
         # print("openrouter api call") 
-        model = "meta-llama/llama-3.3-70b-instruct:free"
+        model = "google/gemma-4-31b-it:free"
         # model = f"x-ai/grok-4.1-fast:free"
         prompt = "given raw food: shrimp (about 10 pieces), pasta, broccoli, and cheese, suggest a meal recipe with cooking instructions, and provide nutrition facts."
         # prompt = "what can you infer from ‘Shakespeare in AI’? (max: 300 words)."
