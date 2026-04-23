@@ -32,8 +32,11 @@ class GenerativeAI:
         '''
 
         # # call ai model using langchain
-        # llm = ChatOpenAI(model=model, base_url="http://localhost:11434/", api_key=self.api_key)
+        # base_url = "https://api.ollama.com/v1"
+        # # base_url="http://localhost:11434/api/chat/"
+        # llm = ChatOpenAI(model=model, base_url=base_url, api_key=self.api_key)
         # response = llm.invoke(prompt)
+        # print("response:", response)
         # return response.content
 
         #  # use ollama library to call ai model (requires ollama running at localhost:11434)
@@ -41,7 +44,7 @@ class GenerativeAI:
         # return response.message.content
 
 
-        # # call ai model using langchain
+        # # call ai model using requests
         url = "http://localhost:11434/api/chat/" # default url for ollama ai
         # url = "https://api.ollama.com/v1/chat/completions"
         headers = {
