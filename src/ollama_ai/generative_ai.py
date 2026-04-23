@@ -30,38 +30,34 @@ class GenerativeAI:
         '''
         generate text using ollama ai
         '''
+
         # # call ai model using langchain
-        # llm = ChatOpenAI(model=model, base_url="http://localhost:11434/api/chat", api_key=self.api_key)
+        # llm = ChatOpenAI(model=model, base_url="http://localhost:11434/", api_key=self.api_key)
         # response = llm.invoke(prompt)
         # return response.content
 
-        # use ollama library to call ai model
-        response = chat(model=model, messages=[{"role": "user", "content": prompt}])
-        return response.message.content
+        #  # use ollama library to call ai model (requires ollama running at localhost:11434)
+        # response = chat(model=model, messages=[{"role": "user", "content": prompt}])
+        # return response.message.content
 
-        # json= {
-        #     "model": model,
-        #     "messages": [{"role": "user", "content": prompt}]
-        # }
-        # response = requests.post(
-        #     url=f" https://api.ollama.com/v1/chat/completions",
-        #     headers={
-        #         "Authorization": f"Bearer {self.api_key}",
-        #         "Content-Type": "application/json"
-        #     },
-        #     json = json
-        #     # json=json.dumps({
-        #     #     "model": model,
-        #     #     # "prompt": prompt,
-        #     #     "messages": [
-        #     #         {"role": "user", "content": prompt}
-        #     #     ],
-        #     #     "max_tokens": 12288,
-        #     #     "temperature": 0.7
-        #     # })
-        # )
-        # print(f"response: {response}") 
-        # response_json = response.json()
-        # return response_json
-        # # response_text = response_json["choices"][0]["message"]["content"]
-        # # return response_text
+
+        # # call ai model using langchain
+        url = "http://localhost:11434/api/chat/" # default url for ollama ai
+        # url = "https://api.ollama.com/v1/chat/completions"
+        headers = {
+            "Authorization": f"Bearer {self.api_key}",
+            "Content-Type": "application/json"
+        }
+
+        payload = {
+            "model": model,
+            "messages": [
+                {"role": "user", "content": prompt}
+            ],
+            "stream": False
+        }
+        # print("payload:", payload)
+        response = requests.post(url, headers=headers, json=payload)
+        response_json = response.json()
+        return response_json["message"]["content"]
+        # return response_json["choices"][0]["message"]["content"]

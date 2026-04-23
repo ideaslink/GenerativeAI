@@ -34,7 +34,7 @@ class TestGenerativeAI(unittest.TestCase):
         
         # print("openrouter api call")
         model = "gemma4:31b-cloud" # f"glm-5.1:cloud"
-        prompt = "given raw food: shrimp (about 10 pieces), pasta, broccoli, and cheese, suggest a meal recipe with cooking instructions, and provide nutrition facts."
+        # prompt = "given raw food: shrimp (about 10 pieces), pasta, broccoli, and cheese, suggest a meal recipe with cooking instructions, and provide nutrition facts."
         # prompt= """
         # You are a nutrition-expert meal planner. 
 
@@ -61,7 +61,7 @@ class TestGenerativeAI(unittest.TestCase):
         #     6. The schema for each meal should contain: title (string), calories (integer), protein (integer), carbs (integer), fat (integer), timeMins (integer), description (string), ingredients (array of objects with name and amount), and instructions (array of strings)."
         # """
 
-        # prompt = "what can you infer from ‘Shakespeare in AI’? (max: 300 words)."
+        prompt = "what can you infer from ‘Shakespeare in AI’? (max: 300 words)."
 
         apikey = os.getenv( OLLAMA_VARS.get("API_KEY", "") )
         # print(apikey)
