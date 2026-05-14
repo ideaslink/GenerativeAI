@@ -45,7 +45,9 @@ class GenerativeAI:
 
 
         # # call ai model using requests
-        url = "http://localhost:11434/api/chat/" # default url for ollama ai
+        # url = "https://vendors-continent-survival-opposite.trycloudflare.com/api/chat/" # cloudflare tunnel url for ollama ai
+        # url = "http://localhost:11434/api/chat/" # default url for ollama ai
+        url = "https://ollama.aithings.cloud/api/chat" # official url for ollama ai cloud
         # url = "https://api.ollama.com/v1/chat/completions"
         headers = {
             "Authorization": f"Bearer {self.api_key}",
