@@ -65,3 +65,7 @@ NVAI_VARS = {
 OLLAMA_VARS = {
     "API_KEY": "OLLAMA_API_KEY"     
 }
+
+FREELLM_VARS = {
+    "API_KEY": "FREELLM_API_KEY"     
+}
