@@ -69,3 +69,7 @@ OLLAMA_VARS = {
 FREELLM_VARS = {
     "API_KEY": "FREELLM_API_KEY"     
 }
+
+NVIDIA_VARS = {
+    "API_KEY": "NVIDIA_API_KEY"     
+}
